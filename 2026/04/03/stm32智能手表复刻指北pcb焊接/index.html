@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>STM32智能手表复刻指北-PCB板焊接 | Hygge</title><meta name="author" content="CHEN YaXin"><meta name="copyright" content="CHEN YaXin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、材料准备焊锡丝，中温锡膏，电工胶带，吸锡带，剪刀，镊子，加热台，电烙铁，元器件（嘉立创配单）带钢网ps：加热台要是不常用到可以咸鱼收二手有牌子的或者参考这个链接，实测能用，（充电器要支持20v，小米67w的可以）【淘宝】7天无理由退货 https:&#x2F;&#x2F;e.tb.cn&#x2F;h.ilYwVPu6t1HmK8W?tk&#x3D;CyBI53DLrO0 CZ005 「迷你数显可调加热台PD65W 20V恒温加热台P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32智能手表复刻指北-PCB板焊接">
+<meta property="og:url" content="https://79130.github.io/2026/04/03/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97pcb%E7%84%8A%E6%8E%A5/index.html">
+<meta property="og:site_name" content="Hygge">
+<meta property="og:description" content="一、材料准备焊锡丝，中温锡膏，电工胶带，吸锡带，剪刀，镊子，加热台，电烙铁，元器件（嘉立创配单）带钢网ps：加热台要是不常用到可以咸鱼收二手有牌子的或者参考这个链接，实测能用，（充电器要支持20v，小米67w的可以）【淘宝】7天无理由退货 https:&#x2F;&#x2F;e.tb.cn&#x2F;h.ilYwVPu6t1HmK8W?tk&#x3D;CyBI53DLrO0 CZ005 「迷你数显可调加热台PD65W 20V恒温加热台P">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://79130.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-04-03T07:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-06T05:35:09.730Z">
+<meta property="article:author" content="CHEN YaXin">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="智能手表">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://79130.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "STM32智能手表复刻指北-PCB板焊接",
+  "url": "https://79130.github.io/2026/04/03/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97pcb%E7%84%8A%E6%8E%A5/",
+  "image": "https://79130.github.io/img/butterfly-icon.png",
+  "datePublished": "2026-04-03T07:00:00.000Z",
+  "dateModified": "2026-04-06T05:35:09.730Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "CHEN YaXin",
+      "url": "https://79130.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://79130.github.io/2026/04/03/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97pcb%E7%84%8A%E6%8E%A5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'STM32智能手表复刻指北-PCB板焊接',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo.png" alt="Logo"><span class="site-name">Hygge</span></a><a class="nav-page-title" href="/"><span class="site-name">STM32智能手表复刻指北-PCB板焊接</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">STM32智能手表复刻指北-PCB板焊接</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-03T07:00:00.000Z" title="发表于 2026-04-03 15:00:00">2026-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-06T05:35:09.730Z" title="更新于 2026-04-06 13:35:09">2026-04-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/STM32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8/">STM32智能手表</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>一、材料准备<br>焊锡丝，中温锡膏，电工胶带，吸锡带，剪刀，镊子，加热台，电烙铁，元器件（嘉立创配单）带钢网<br>ps：加热台要是不常用到可以咸鱼收二手有牌子的或者参考这个链接，实测能用，（充电器要支持20v，小米67w的可以）<br>【淘宝】7天无理由退货 <a target="_blank" rel="noopener" href="https://e.tb.cn/h.ilYwVPu6t1HmK8W?tk=CyBI53DLrO0">https://e.tb.cn/h.ilYwVPu6t1HmK8W?tk=CyBI53DLrO0</a> CZ005 「迷你数显可调加热台PD65W 20V恒温加热台PCB表面贴装预热焊接拆卸」<br>ps：锡膏有铅的熔点比较低，无铅的比较高，无铅的对身体更好可以考虑选购</p>
+<p>二、涂锡膏<br>这里钢网和pcb板对齐后固定，不固定容易跑！然后涂锡膏的时候不能用力刮，否则锡膏会溢出造成连锡<br><img src="/img/posts/stm32-watch/image-19.png"><br>这里连锡的地方可以用镊子轻划开<br><img src="/img/posts/stm32-watch/image-20.png" alt="涂好锡膏"><br>把元器件对照嘉立创的图放置到pcb对应位置，温度调到190度，一分钟左右完成<br><img src="/img/posts/stm32-watch/image-21.png" alt="融锡"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://79130.github.io">CHEN YaXin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://79130.github.io/2026/04/03/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97pcb%E7%84%8A%E6%8E%A5/">https://79130.github.io/2026/04/03/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97pcb%E7%84%8A%E6%8E%A5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://79130.github.io" target="_blank">Hygge</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/STM32/">STM32</a><a class="post-meta__tags" href="/tags/%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8/">智能手表</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/04/01/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97/" title="STM32智能手表复刻指北-PCB板绘制"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">STM32智能手表复刻指北-PCB板绘制</div></div><div class="info-2"><div class="info-item-1">一.PCB布局1.把之前画好的原理图更新到PCB2.放置矩形板框，这里板框的大小要根据OLED的大小来设置宽度我们选择35.4mm，高度我们比OLED多预留8mm以备后续手表带用，高度选41.5mm注意单位是不是mm，如果是mile的话取消选中矩形框。然后设置3.根据oled原理图来计算焊盘的位置，焊盘属性图层记得选多层以下为焊盘的位置数据工具-图层管理器-选择四层板-重命名层名4.PCB布局接下来就是在原理图框选交叉选择，然后拖拽布局，这里操作繁琐，仅展示布局成果 二、PCB布线1.先把GND、3V3、VBAT+ VBAT隐藏，画信号线alt＋W激活导线快捷键，tab键设置导线宽度为0.254alt+v放置过孔，alt+t切换到顶层没有飞线即连接完成2.把GND、3V3、VBAT+ VBAT放出来，画电源线alt＋W激活导线快捷键，tab键设置导线宽度为0.4三、打上丝印、检查DRC 三、注意点【【教程】零基础入门PCB设计-国一学长带你学嘉立创EDA专业版 全程保姆级教学 中文字幕（大师篇已更新）】 https://www.bilibili.com/video/BV1At42...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/01/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97/" title="STM32智能手表复刻指北-PCB板绘制"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-01</div><div class="info-item-2">STM32智能手表复刻指北-PCB板绘制</div></div><div class="info-2"><div class="info-item-1">一.PCB布局1.把之前画好的原理图更新到PCB2.放置矩形板框，这里板框的大小要根据OLED的大小来设置宽度我们选择35.4mm，高度我们比OLED多预留8mm以备后续手表带用，高度选41.5mm注意单位是不是mm，如果是mile的话取消选中矩形框。然后设置3.根据oled原理图来计算焊盘的位置，焊盘属性图层记得选多层以下为焊盘的位置数据工具-图层管理器-选择四层板-重命名层名4.PCB布局接下来就是在原理图框选交叉选择，然后拖拽布局，这里操作繁琐，仅展示布局成果 二、PCB布线1.先把GND、3V3、VBAT+ VBAT隐藏，画信号线alt＋W激活导线快捷键，tab键设置导线宽度为0.254alt+v放置过孔，alt+t切换到顶层没有飞线即连接完成2.把GND、3V3、VBAT+ VBAT放出来，画电源线alt＋W激活导线快捷键，tab键设置导线宽度为0.4三、打上丝印、检查DRC 三、注意点【【教程】零基础入门PCB设计-国一学长带你学嘉立创EDA专业版 全程保姆级教学 中文字幕（大师篇已更新）】 https://www.bilibili.com/video/BV1At42...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">CHEN YaXin</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/03/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97pcb%E7%84%8A%E6%8E%A5/" title="STM32智能手表复刻指北-PCB板焊接">STM32智能手表复刻指北-PCB板焊接</a><time datetime="2026-04-03T07:00:00.000Z" title="发表于 2026-04-03 15:00:00">2026-04-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/01/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97/" title="STM32智能手表复刻指北-PCB板绘制">STM32智能手表复刻指北-PCB板绘制</a><time datetime="2026-04-01T12:00:00.000Z" title="发表于 2026-04-01 20:00:00">2026-04-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/25/hello-world/" title="Hello World">Hello World</a><time datetime="2026-03-25T09:39:46.602Z" title="发表于 2026-03-25 17:39:46">2026-03-25</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By CHEN YaXin</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
