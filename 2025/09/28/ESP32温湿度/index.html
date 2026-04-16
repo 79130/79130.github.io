@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ESP32物联网温湿度控制系统 | Hygge</title><meta name="author" content="CHEN YaXin"><meta name="copyright" content="CHEN YaXin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ESP32 远程温室大棚模拟控制系统基于ESP32开发板与巴法云平台的物联网系统，实现温湿度数据采集、云端传输、远程设备控制及微信小程序交互，全程单人独立完成硬件搭建、程序开发、平台配置与前端交互全流程。 项目简介本项目以ESP32为核心控制器，模拟远程温室大棚监控场景：  硬件层：通过DHT11采集温湿度数据，驱动小灯泡模拟设备远程控制； 网络层：基于WiFi+TCP协议与巴法云平台实现数据双向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP32物联网温湿度控制系统">
+<meta property="og:url" content="https://79130.github.io/2025/09/28/ESP32%E6%B8%A9%E6%B9%BF%E5%BA%A6/index.html">
+<meta property="og:site_name" content="Hygge">
+<meta property="og:description" content="ESP32 远程温室大棚模拟控制系统基于ESP32开发板与巴法云平台的物联网系统，实现温湿度数据采集、云端传输、远程设备控制及微信小程序交互，全程单人独立完成硬件搭建、程序开发、平台配置与前端交互全流程。 项目简介本项目以ESP32为核心控制器，模拟远程温室大棚监控场景：  硬件层：通过DHT11采集温湿度数据，驱动小灯泡模拟设备远程控制； 网络层：基于WiFi+TCP协议与巴法云平台实现数据双向">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://79130.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-09-28T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-16T16:12:21.706Z">
+<meta property="article:author" content="CHEN YaXin">
+<meta property="article:tag" content="ESP32">
+<meta property="article:tag" content="物联网温湿度">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://79130.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ESP32物联网温湿度控制系统",
+  "url": "https://79130.github.io/2025/09/28/ESP32%E6%B8%A9%E6%B9%BF%E5%BA%A6/",
+  "image": "https://79130.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-09-28T00:00:00.000Z",
+  "dateModified": "2026-04-16T16:12:21.706Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "CHEN YaXin",
+      "url": "https://79130.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://79130.github.io/2025/09/28/ESP32%E6%B8%A9%E6%B9%BF%E5%BA%A6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ESP32物联网温湿度控制系统',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo.png" alt="Logo"><span class="site-name">Hygge</span></a><a class="nav-page-title" href="/"><span class="site-name">ESP32物联网温湿度控制系统</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ESP32物联网温湿度控制系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-28T00:00:00.000Z" title="发表于 2025-09-28 08:00:00">2025-09-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-16T16:12:21.706Z" title="更新于 2026-04-17 00:12:21">2026-04-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ESP32%E6%B8%A9%E5%AE%A4%E5%A4%A7%E6%A3%9A%E6%99%BA%E8%83%BD%E7%AE%A1%E7%90%86%EF%BC%88%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%A3%80%E6%B5%8B%EF%BC%89/">ESP32温室大棚智能管理（温湿度检测）</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="ESP32-远程温室大棚模拟控制系统"><a href="#ESP32-远程温室大棚模拟控制系统" class="headerlink" title="ESP32 远程温室大棚模拟控制系统"></a>ESP32 远程温室大棚模拟控制系统</h1><p>基于ESP32开发板与巴法云平台的物联网系统，实现温湿度数据采集、云端传输、远程设备控制及微信小程序交互，全程单人独立完成硬件搭建、程序开发、平台配置与前端交互全流程。</p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目以ESP32为核心控制器，模拟远程温室大棚监控场景：</p>
+<ul>
+<li>硬件层：通过DHT11采集温湿度数据，驱动小灯泡模拟设备远程控制；</li>
+<li>网络层：基于WiFi+TCP协议与巴法云平台实现数据双向传输；</li>
+<li>应用层：开发微信小程序实现移动端数据可视化与远程控制。<br>所有功能均满足设计指标：数据传输延迟≤2.3秒、设备响应≤1.5秒、小程序刷新≤8秒&#x2F;次。</li>
+</ul>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>技术&#x2F;工具</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>硬件</td>
+<td>ESP32-WROOM-32、DHT11、LED、限流电阻</td>
+</tr>
+<tr>
+<td>开发环境</td>
+<td>Arduino IDE、微信开发者工具</td>
+</tr>
+<tr>
+<td>通信协议</td>
+<td>WiFi(STA模式)、TCP、HTTP API</td>
+</tr>
+<tr>
+<td>核心库&#x2F;平台</td>
+<td>SimpleDHT、巴法云TCP创客云</td>
+</tr>
+<tr>
+<td>前端技术</td>
+<td>微信小程序（WXML&#x2F;WXSS&#x2F;JS）</td>
+</tr>
+</tbody></table>
+<h2 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h2><h3 id="1-温湿度数据采集与云端上传"><a href="#1-温湿度数据采集与云端上传" class="headerlink" title="1. 温湿度数据采集与云端上传"></a>1. 温湿度数据采集与云端上传</h3><ul>
+<li>基于SimpleDHT库读取DHT11传感器数据，采样频率2秒&#x2F;次；</li>
+<li>按<code>#温度#湿度#设备状态#</code>格式封装数据，通过TCP协议发布至巴法云<code>temp</code>主题；</li>
+<li>实现WiFi断线自动重连、TCP心跳保活机制，数据上传成功率98%。</li>
+</ul>
+<h3 id="2-远程设备控制"><a href="#2-远程设备控制" class="headerlink" title="2. 远程设备控制"></a>2. 远程设备控制</h3><ul>
+<li>监听巴法云<code>light</code>主题，解析<code>on/off</code>控制指令，驱动LED亮灭；</li>
+<li>支持手动远程控制（优先级最高）+ 自动阈值控制（温度＞30℃时LED闪烁）。</li>
+</ul>
+<h3 id="3-微信小程序交互"><a href="#3-微信小程序交互" class="headerlink" title="3. 微信小程序交互"></a>3. 微信小程序交互</h3><ul>
+<li>开发轻量化小程序界面，支持温湿度数据实时显示、LED控制指令发送；</li>
+<li>配置合法域名与HTTP API调用，界面加载≤2秒，自动刷新频率8秒&#x2F;次。</li>
+</ul>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="1-硬件连接"><a href="#1-硬件连接" class="headerlink" title="1. 硬件连接"></a>1. 硬件连接</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>ESP32引脚</th>
+<th>连接说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DHT11数据线</td>
+<td>GPIO4</td>
+<td>电源接3.3V，接地接GND</td>
+</tr>
+<tr>
+<td>LED正极</td>
+<td>GPIO2</td>
+<td>串联220Ω限流电阻后接GND</td>
+</tr>
+<tr>
+<td>WiFi</td>
+<td>-</td>
+<td>接入手机热点&#x2F;路由器（同局域网）</td>
+</tr>
+</tbody></table>
+<h3 id="2-软件配置"><a href="#2-软件配置" class="headerlink" title="2. 软件配置"></a>2. 软件配置</h3><h4 id="（1）ESP32程序（Arduino-IDE）"><a href="#（1）ESP32程序（Arduino-IDE）" class="headerlink" title="（1）ESP32程序（Arduino IDE）"></a>（1）ESP32程序（Arduino IDE）</h4><ol>
+<li>安装ESP32开发板支持库、SimpleDHT库；</li>
+<li>修改代码中WiFi账号&#x2F;密码、巴法云UID&#x2F;主题名：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> WIFI_SSID <span class="string">&quot;你的WiFi名称&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIFI_PASS <span class="string">&quot;你的WiFi密码&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BEMFA_UID <span class="string">&quot;你的巴法云UID&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TOPIC_TEMP <span class="string">&quot;temp&quot;</span>  <span class="comment">// 数据主题</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TOPIC_LIGHT <span class="string">&quot;light&quot;</span> <span class="comment">// 控制主题</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TOPIC_TEMP <span class="string">&quot;temp&quot;</span>  <span class="comment">// 数据主题</span></span></span><br></pre></td></tr></table></figure></li>
+<li>上传程序至ESP32，打开串口监视器（设置115200波特率）查看设备运行状态。</li>
+</ol>
+<h4 id="（2）巴法云平台配置"><a href="#（2）巴法云平台配置" class="headerlink" title="（2）巴法云平台配置"></a>（2）巴法云平台配置</h4><ol>
+<li>注册巴法云账号，在平台创建两个TCP主题：temp（用于数据发布）、light（用于指令订阅）；</li>
+<li>记录平台分配的唯一UID，该UID需同步至ESP32程序和小程序代码中，作为接口调用的核心标识。</li>
+</ol>
+<h4 id="（3）微信小程序配置"><a href="#（3）微信小程序配置" class="headerlink" title="（3）微信小程序配置"></a>（3）微信小程序配置</h4><ol>
+<li>下载项目中miniprogram目录下的小程序源码，使用微信开发者工具打开；</li>
+<li>登录微信小程序后台，在“开发-开发设置-服务器域名”中添加合法域名：<a target="_blank" rel="noopener" href="https://api.bemfa.com;/">https://api.bemfa.com；</a></li>
+<li>修改小程序代码中的巴法云UID与主题名（temp&#x2F;light），完成配置后编译并运行小程序。</li>
+</ol>
+<h2 id="核心代码模块说明"><a href="#核心代码模块说明" class="headerlink" title="核心代码模块说明"></a>核心代码模块说明</h2><h3 id="1-温湿度采集模块"><a href="#1-温湿度采集模块" class="headerlink" title="1. 温湿度采集模块"></a>1. 温湿度采集模块</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> pinDHT11 4</span></span><br><span class="line">SimpleDHT11 <span class="title function_">dht11</span><span class="params">(pinDHT11)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">readDHT11Data</span><span class="params">()</span> &#123;</span><br><span class="line">  byte temp = <span class="number">0</span>, humi = <span class="number">0</span>;</span><br><span class="line">  <span class="type">int</span> err = dht11.read(&amp;temp, &amp;humi, <span class="literal">NULL</span>);</span><br><span class="line">  <span class="keyword">if</span> (err == SimpleDHTErrSuccess) &#123;</span><br><span class="line">    String data = <span class="string">&quot;#&quot;</span> + String(temp) + <span class="string">&quot;#&quot;</span> + String(humi) + <span class="string">&quot;#&quot;</span> + String(ledState) + <span class="string">&quot;#&quot;</span>;</span><br><span class="line">    sendtoTCPServer(data); <span class="comment">// 上传至云端</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-TCP指令解析模块"><a href="#2-TCP指令解析模块" class="headerlink" title="2. TCP指令解析模块"></a>2. TCP指令解析模块</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String TcpClient_Buff = <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">parseTCPCmd</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (TcpClient_Buff.indexOf(<span class="string">&quot;&amp;msg=on&quot;</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    digitalWrite(LED_Pin, LOW); <span class="comment">// 点亮 LED</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (TcpClient_Buff.indexOf(<span class="string">&quot;&amp;msg=off&quot;</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    digitalWrite(LED_Pin, HIGH); <span class="comment">// 熄灭 LED</span></span><br><span class="line">  &#125;</span><br><span class="line">  TcpClient_Buff = <span class="string">&quot;&quot;</span>; <span class="comment">// 清空缓冲区</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><table>
+<thead>
+<tr>
+<th>测试项</th>
+<th>实测值</th>
+<th>设计指标</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>温湿度采集误差</td>
+<td>温度≤1℃、湿度≤3%</td>
+<td>-</td>
+<td>达标</td>
+</tr>
+<tr>
+<td>数据上传延迟</td>
+<td>平均2.3秒</td>
+<td>≤5秒</td>
+<td>达标</td>
+</tr>
+<tr>
+<td>LED响应时间</td>
+<td>平均1.5秒</td>
+<td>≤3秒</td>
+<td>达标</td>
+</tr>
+<tr>
+<td>小程序刷新频率</td>
+<td>8秒&#x2F;次</td>
+<td>≥1次&#x2F;10秒</td>
+<td>达标</td>
+</tr>
+</tbody></table>
+<h2 id="问题与解决"><a href="#问题与解决" class="headerlink" title="问题与解决"></a>问题与解决</h2><table>
+<thead>
+<tr>
+<th>问题场景</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WiFi连接不稳定、频繁断线</td>
+<td>增加WiFi状态轮询机制，添加断线自动重连逻辑，实时检测连接状态并触发重连</td>
+</tr>
+<tr>
+<td>巴法云指令解析错误</td>
+<td>仔细研读巴法云官方文档，修正TCP协议参数的封装格式，确保指令字段匹配</td>
+</tr>
+<tr>
+<td>小程序域名配置失败</td>
+<td>在微信小程序后台的服务器域名配置项中，添加“<a target="_blank" rel="noopener" href="https://api.bemfa.com”为合法域名/">https://api.bemfa.com”为合法域名</a></td>
+</tr>
+</tbody></table>
+<h2 id="改进方向"><a href="#改进方向" class="headerlink" title="改进方向"></a>改进方向</h2><ol>
+<li>硬件层面：增加ESD保护二极管，防止静电干扰DHT11传感器的数据采集精度；</li>
+<li>程序层面：引入MQTT协议与现有TCP协议做对比测试，优化设备功耗与数据传输效率；</li>
+<li>小程序层面：添加温湿度阈值预警动态效果（如温度超限时界面变色），引入本地存储功能缓存历史数据，减少重复API请求。</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>巴法云TCP创客云官方文档：<a target="_blank" rel="noopener" href="https://cloud.bemfa.com/docs/src/">https://cloud.bemfa.com/docs/src/</a></li>
+<li>ESP32 WiFi开发官方指南：<a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/">https://docs.espressif.com/projects/esp-idf/</a></li>
+<li>微信小程序官方开发文档：<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/">https://developers.weixin.qq.com/miniprogram/dev/</a></li>
+</ul>
+<p>我整理的项目复习资料<br>飞书链接：<a target="_blank" rel="noopener" href="https://ocnyflop7rld.feishu.cn/wiki/NtR0wRlo4iji5gkdmZKcZONEn7f">https://ocnyflop7rld.feishu.cn/wiki/NtR0wRlo4iji5gkdmZKcZONEn7f</a>   密码：18491#2E</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://79130.github.io">CHEN YaXin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://79130.github.io/2025/09/28/ESP32%E6%B8%A9%E6%B9%BF%E5%BA%A6/">https://79130.github.io/2025/09/28/ESP32%E6%B8%A9%E6%B9%BF%E5%BA%A6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://79130.github.io" target="_blank">Hygge</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ESP32/">ESP32</a><a class="post-meta__tags" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91%E6%B8%A9%E6%B9%BF%E5%BA%A6/">物联网温湿度</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/03/25/hello-world/" title="Hello World"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Hello World</div></div><div class="info-2"><div class="info-item-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;  More info: Writing Run server1$ hexo server  More info: Server Generate static files1$ hexo generate  More info: Generating Deploy to remote sites1$ hexo deploy  More info: Deployment </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">CHEN YaXin</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP32-%E8%BF%9C%E7%A8%8B%E6%B8%A9%E5%AE%A4%E5%A4%A7%E6%A3%9A%E6%A8%A1%E6%8B%9F%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">ESP32 远程温室大棚模拟控制系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">项目简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%A0%88"><span class="toc-number">1.2.</span> <span class="toc-text">技术栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="toc-number">1.3.</span> <span class="toc-text">核心功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E4%B8%8E%E4%BA%91%E7%AB%AF%E4%B8%8A%E4%BC%A0"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 温湿度数据采集与云端上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9C%E7%A8%8B%E8%AE%BE%E5%A4%87%E6%8E%A7%E5%88%B6"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 远程设备控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BA%A4%E4%BA%92"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 微信小程序交互</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="toc-number">1.4.</span> <span class="toc-text">快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%A1%AC%E4%BB%B6%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 硬件连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 软件配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89ESP32%E7%A8%8B%E5%BA%8F%EF%BC%88Arduino-IDE%EF%BC%89"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">（1）ESP32程序（Arduino IDE）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%B7%B4%E6%B3%95%E4%BA%91%E5%B9%B3%E5%8F%B0%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">（2）巴法云平台配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">（3）微信小程序配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E"><span class="toc-number">1.5.</span> <span class="toc-text">核心代码模块说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B8%A9%E6%B9%BF%E5%BA%A6%E9%87%87%E9%9B%86%E6%A8%A1%E5%9D%97"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. 温湿度采集模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-TCP%E6%8C%87%E4%BB%A4%E8%A7%A3%E6%9E%90%E6%A8%A1%E5%9D%97"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. TCP指令解析模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-number">1.6.</span> <span class="toc-text">测试结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3"><span class="toc-number">1.7.</span> <span class="toc-text">问题与解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B%E6%96%B9%E5%90%91"><span class="toc-number">1.8.</span> <span class="toc-text">改进方向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.9.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/03/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97pcb%E7%84%8A%E6%8E%A5/" title="STM32智能手表复刻指北-PCB板焊接">STM32智能手表复刻指北-PCB板焊接</a><time datetime="2026-04-03T07:00:00.000Z" title="发表于 2026-04-03 15:00:00">2026-04-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/01/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97/" title="STM32智能手表复刻指北-PCB板绘制">STM32智能手表复刻指北-PCB板绘制</a><time datetime="2026-04-01T12:00:00.000Z" title="发表于 2026-04-01 20:00:00">2026-04-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/28/%E6%89%8B%E8%A1%A8%E5%8E%9F%E7%90%86%E5%9B%BE%E7%BB%98%E5%88%B6/" title="STM32智能手表复刻指北-原理图绘制">STM32智能手表复刻指北-原理图绘制</a><time datetime="2026-03-28T13:00:00.000Z" title="发表于 2026-03-28 21:00:00">2026-03-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/28/%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E4%BB%A3%E7%A0%81%E9%83%A8%E5%88%86/" title="STM32智能手表复刻指北-代码部分">STM32智能手表复刻指北-代码部分</a><time datetime="2026-03-28T00:00:00.000Z" title="发表于 2026-03-28 08:00:00">2026-03-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/27/%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E9%9D%A2%E5%8C%85%E6%9D%BF%E6%8E%A5%E7%BA%BF/" title="STM32智能手表复刻指北-面包板接线">STM32智能手表复刻指北-面包板接线</a><time datetime="2026-03-27T12:00:00.000Z" title="发表于 2026-03-27 20:00:00">2026-03-27</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By CHEN YaXin</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
