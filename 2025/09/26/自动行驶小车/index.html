@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>自动行驶小车控制系统 | Hygge</title><meta name="author" content="CHEN YaXin"><meta name="copyright" content="CHEN YaXin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="这个项目可以参考这个博主https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_60372743&#x2F;article&#x2F;details&#x2F;141034282 飞书链接：https:&#x2F;&#x2F;ocnyflop7rld.feishu.cn&#x2F;wiki&#x2F;WSKVwljJUiXbJekqSHIcf7qsnPd   密码：339m22&amp;1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动行驶小车控制系统">
+<meta property="og:url" content="https://79130.github.io/2025/09/26/%E8%87%AA%E5%8A%A8%E8%A1%8C%E9%A9%B6%E5%B0%8F%E8%BD%A6/index.html">
+<meta property="og:site_name" content="Hygge">
+<meta property="og:description" content="这个项目可以参考这个博主https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_60372743&#x2F;article&#x2F;details&#x2F;141034282 飞书链接：https:&#x2F;&#x2F;ocnyflop7rld.feishu.cn&#x2F;wiki&#x2F;WSKVwljJUiXbJekqSHIcf7qsnPd   密码：339m22&amp;1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://79130.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-09-26T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-17T03:13:21.370Z">
+<meta property="article:author" content="CHEN YaXin">
+<meta property="article:tag" content="TI电赛">
+<meta property="article:tag" content="自动行驶小车">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://79130.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "自动行驶小车控制系统",
+  "url": "https://79130.github.io/2025/09/26/%E8%87%AA%E5%8A%A8%E8%A1%8C%E9%A9%B6%E5%B0%8F%E8%BD%A6/",
+  "image": "https://79130.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-09-26T12:00:00.000Z",
+  "dateModified": "2026-04-17T03:13:21.370Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "CHEN YaXin",
+      "url": "https://79130.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://79130.github.io/2025/09/26/%E8%87%AA%E5%8A%A8%E8%A1%8C%E9%A9%B6%E5%B0%8F%E8%BD%A6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '自动行驶小车控制系统',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo.png" alt="Logo"><span class="site-name">Hygge</span></a><a class="nav-page-title" href="/"><span class="site-name">自动行驶小车控制系统</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">自动行驶小车控制系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-26T12:00:00.000Z" title="发表于 2025-09-26 20:00:00">2025-09-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-17T03:13:21.370Z" title="更新于 2026-04-17 11:13:21">2026-04-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%87%AA%E5%8A%A8%E8%A1%8C%E9%A9%B6%E5%B0%8F%E8%BD%A6/">自动行驶小车</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>这个项目可以参考这个博主<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_60372743/article/details/141034282">https://blog.csdn.net/m0_60372743/article/details/141034282</a></p>
+<p>飞书链接：<a target="_blank" rel="noopener" href="https://ocnyflop7rld.feishu.cn/wiki/WSKVwljJUiXbJekqSHIcf7qsnPd">https://ocnyflop7rld.feishu.cn/wiki/WSKVwljJUiXbJekqSHIcf7qsnPd</a>   密码：339m22&amp;1</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://79130.github.io">CHEN YaXin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://79130.github.io/2025/09/26/%E8%87%AA%E5%8A%A8%E8%A1%8C%E9%A9%B6%E5%B0%8F%E8%BD%A6/">https://79130.github.io/2025/09/26/%E8%87%AA%E5%8A%A8%E8%A1%8C%E9%A9%B6%E5%B0%8F%E8%BD%A6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://79130.github.io" target="_blank">Hygge</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/TI%E7%94%B5%E8%B5%9B/">TI电赛</a><a class="post-meta__tags" href="/tags/%E8%87%AA%E5%8A%A8%E8%A1%8C%E9%A9%B6%E5%B0%8F%E8%BD%A6/">自动行驶小车</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/09/28/ESP32%E6%B8%A9%E6%B9%BF%E5%BA%A6/" title="ESP32物联网温湿度控制系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">ESP32物联网温湿度控制系统</div></div><div class="info-2"><div class="info-item-1">ESP32 远程温室大棚模拟控制系统基于ESP32开发板与巴法云平台的物联网系统，实现温湿度数据采集、云端传输、远程设备控制及微信小程序交互，全程单人独立完成硬件搭建、程序开发、平台配置与前端交互全流程。 项目简介本项目以ESP32为核心控制器，模拟远程温室大棚监控场景：  硬件层：通过DHT11采集温湿度数据，驱动小灯泡模拟设备远程控制； 网络层：基于WiFi+TCP协议与巴法云平台实现数据双向传输； 应用层：开发微信小程序实现移动端数据可视化与远程控制。所有功能均满足设计指标：数据传输延迟≤2.3秒、设备响应≤1.5秒、小程序刷新≤8秒&#x2F;次。  技术栈   分类 技术&#x2F;工具    硬件 ESP32-WROOM-32、DHT11、LED、限流电阻   开发环境 Arduino IDE、微信开发者工具   通信协议 WiFi(STA模式)、TCP、HTTP API   核心库&#x2F;平台 SimpleDHT、巴法云TCP创客云   前端技术 微信小程序（WXML&#x2F;WXSS&#x2F;JS）   核心功能1. 温湿度数据采集与云端上传 基于Simp...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">CHEN YaXin</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/03/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97pcb%E7%84%8A%E6%8E%A5/" title="STM32智能手表复刻指北-PCB板焊接">STM32智能手表复刻指北-PCB板焊接</a><time datetime="2026-04-03T07:00:00.000Z" title="发表于 2026-04-03 15:00:00">2026-04-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/01/stm32%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E5%A4%8D%E5%88%BB%E6%8C%87%E5%8C%97/" title="STM32智能手表复刻指北-PCB板绘制">STM32智能手表复刻指北-PCB板绘制</a><time datetime="2026-04-01T12:00:00.000Z" title="发表于 2026-04-01 20:00:00">2026-04-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/28/%E6%89%8B%E8%A1%A8%E5%8E%9F%E7%90%86%E5%9B%BE%E7%BB%98%E5%88%B6/" title="STM32智能手表复刻指北-原理图绘制">STM32智能手表复刻指北-原理图绘制</a><time datetime="2026-03-28T13:00:00.000Z" title="发表于 2026-03-28 21:00:00">2026-03-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/28/%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E4%BB%A3%E7%A0%81%E9%83%A8%E5%88%86/" title="STM32智能手表复刻指北-代码部分">STM32智能手表复刻指北-代码部分</a><time datetime="2026-03-28T00:00:00.000Z" title="发表于 2026-03-28 08:00:00">2026-03-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/27/%E6%99%BA%E8%83%BD%E6%89%8B%E8%A1%A8%E9%9D%A2%E5%8C%85%E6%9D%BF%E6%8E%A5%E7%BA%BF/" title="STM32智能手表复刻指北-面包板接线">STM32智能手表复刻指北-面包板接线</a><time datetime="2026-03-27T12:00:00.000Z" title="发表于 2026-03-27 20:00:00">2026-03-27</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By CHEN YaXin</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
